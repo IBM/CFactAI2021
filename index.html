@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-
-<html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -18,9 +17,383 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
-<body>
+<body style="width: 1100px; margin-left:auto;margin-right:auto;">
 
-<img src="images/under_construction.png" id="octocat" alt="" />
+    <section class="page-header">
+      <h1 class="project-name">CFactAI 2021</h1>
+      <h2 class="project-tagline">AI Challenge for Automated Identification of Guideline-driven Clinical Factors from EHR Notes</h2>
+      <h3 class="project-tagline">June - October 2021</h2>
+    </section>
+ 
+    <div class="content-container">
+        <div id="left-panel" class="left-nav-wrapper">
+            <ul class="navigation-panel">
+                <li class="nav-1 nav-tab active" onclick="openPage(event, 'contentIntro')">Introduction</li>
+                <li class="nav-2 nav-tab" onclick="openPage(event, 'contentSharedTask')">Task Overview</li>
+                <li class="nav-4 nav-tab" onclick="openPage(event, 'contentData')">Dataset</li>
+                <li class="nav-5 nav-tab" onclick="openPage(event, 'contentReg')">Participation</li>
+                <li class="nav-6 nav-tab" onclick="openPage(event, 'contentDates')">Important Dates</li>
+                <li class="nav-7 nav-tab" onclick="openPage(event, 'contentOrg')">Organizers</li>
+                <li class="nav-8 nav-tab" onclick="openPage(event, 'contentContact')">Contact</li>
+                <li class="nav-8 nav-tab" onclick="openPage(event, 'contentReferences')">References</li>
+            </ul>
+            <div class="cross-btn" onclick="showNav()">
+                <span>X</span>
+            </div>
+        </div>
+        <div class="right-content-wrapper">
+            <div id="contentIntro" class="content right-pan-normal-mode" style="display: block">
+                <br/>
+                <p>
+                  Natural Language Processing (NLP) applications have the potential to aid in situations where humans can benefit from augmented decision-making. 
+                  This is particularly important in the healthcare domain as an overabundance of information within electronic health records (EHRs) has resulted in a need for automated systems to mitigate the cognitive burden on physicians utilizing today’s EHR systems. 
+                  Since the early 2000s, community challenges, or shared tasks, have pushed development of NLP systems and tested the state-of-the-art for applications of these technologies in a variety of increasingly more complex challenge tasks in the clinical domain. 
+                  In addition to use cases in the clinical setting, secondary uses of EHR data, such as clinical trial cohort selection, insurance underwriting, and adverse drug event reporting are also in need of such information extraction and text summarization applications.
+                </p>
+                <p>
+                  Significant gaps remain between existing NLP shared tasks and systems integrated into the workflow of real clinical applications and real-world use cases\(^{1}\).
+                  To help bridge these gaps, we propose a new shared task to extract evidence of clinical factors from clinical notes for a given medical condition, 
+                  where a clinical factor is defined as information on the screening, diagnosis, or management of the condition according to its relevant clinical practice guidelines.  
+                  The main differentiators of this task are, 
+                  <ul">
+                    <li>the clinical factors are contextualized by the given guidelines</li>
+                    <li>the evaluation setup favors systems that can generalize to conditions and guidelines outside of the training data</li>
+                </ul>
+                <br/>
+                  Systems performing well in this task have the potential to improve downstream healthcare applications where context-awareness and generalizability are important. 
+                </p>
+                This work builds on previous challenge tasks including the i2b2\(^{2-7}\) (now N2C2\(^{9}\)) <a href="https://doi.org/10.1136/jamia.2010.003947">Extracting Medication Information from Clinical Text</a>, the 2010 i2b2/VA Challenge on Concepts, 
+                Assertions, and Relations in Clinical Text, and the 2011 <a href="https://doi.org/10.1136/amiajnl-2011-000784">Evaluating the State of the Art in Coreference Resolution for Electronic Medical Records</a>. 
+              </p>
+            </div>
 
+            <div id="contentSharedTask" class="content right-pan-normal-mode">
+              <div class="heading"><h1>Task Overview</h1></div>
+              <p>                    
+              This shared task has 2 tracks. Both of them share the definitions below.
+              </p>                    
+              <br/>
+              <style type="text/css">
+                .tg  {border-collapse:collapse;border-spacing:0;}
+                .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                  overflow:hidden;padding:10px 5px;word-break:normal;}
+                .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+                .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+                .tg .tg-0lax{text-align:left;vertical-align:top}
+                </style>
+                <table class="tg">
+                <thead>
+                  <tr>
+                    <th class="tg-0pky"><span style="font-weight:700;font-style:normal">Name</span></th>
+                    <th class="tg-0pky"><span style="font-weight:700;font-style:normal">Notation</span></th>
+                    <th class="tg-0pky"><span style="font-weight:bold">Definition</span></th>
+                    <th class="tg-0pky"><span style="font-weight:700;font-style:normal">Example</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="tg-0pky"><span style="font-weight:400;font-style:normal">Notes</span></td>
+                    <td class="tg-0pky">$$N$$</td>
+                    <td class="tg-0pky">A collection of clinical notes</td>
+                    <td class="tg-0pky">A subset of notes released for training</td>
+                  </tr>
+                  <tr>
+                    <td class="tg-0pky"><span style="font-weight:400;font-style:normal">Note</span></td>
+                    <td class="tg-0pky">$$n_k$$</td>
+                    <td class="tg-0pky">A single clinical note</td>
+                    <td class="tg-0pky"></td>
+                  </tr>
+                  <tr>
+                    <td class="tg-0pky">Conditions</td>
+                    <td class="tg-0pky">$$D$$</td>
+                    <td class="tg-0pky">A collection of conditions (diseases / impairments)	</td>
+                    <td class="tg-0pky">-</td>
+                  </tr>
+                  <tr>
+                    <td class="tg-0lax">Clinical Condition</td>
+                    <td class="tg-0lax">$$d_i$$</td>
+                    <td class="tg-0lax">a condition (disease / impairment)</td>
+                    <td class="tg-0lax">Diabetes mellitus (DM) II</td>
+                  </tr>
+                  <tr>
+                    <td class="tg-0lax">Clinical Factor</td>
+                    <td class="tg-0lax">$$f_{ij}$$</td>
+                    <td class="tg-0lax">Some pertinent fact about the patient situation that we are seeking to establish / prove (evidence is available in the note) or disprove (evidence is unavailable)</td>
+                    <td class="tg-0lax">first-degree relative with diabetes</td>
+                  </tr>
+                  <tr>
+                    <td class="tg-0lax">Evidence</td>
+                    <td class="tg-0lax">$$e_{ijk}$$</td>
+                    <td class="tg-0lax">A span of text from note \(n_{k}\) that support/refute clinical factor \(f_{ij}\)</td>
+                    <td class="tg-0lax">...Her family history reveals that her mother has type 2 diabetes mellitus...</td>
+                  </tr>
+                  <tr>
+                    <td class="tg-0lax">Evidences</td>
+                    <td class="tg-0lax">\(\textbf{E}_{ijk} = \cup_{l=1}^N{e_{ijk}}\)</td>
+                    <td class="tg-0lax">All N evidences in note \(k\) that supports/refutes a clinical factor \(f_{ij}\)	</td>
+                    <td class="tg-0lax">-</td>
+                  </tr>
+                </tbody>
+                </table>
+
+                <div class="heading">
+                  <h2>Track 1: Span Extraction</h2>
+                  The first track is extraction of span corresponding to each evidence \(e_{ijk}\) for each clinical factor \(f_{ij}\).
+                  <h3>Evaluation Metrics</h3>
+                  <ul>
+                    <li><b>Span-level</b>:
+                    For each clinical factor \(f_{ij}\) and note \(n_{k}\), participant systems will be asked to identify the evidence \(e_{ijk}\) corresponding to the clinical factor. Average ROUGE score will be used for the comparison of system performance. 
+                  </li>
+                    <li><b>Sentence-level</b>:
+                      For each clinical factor \(f_{ij}\) and note \(n_{k}\), participant systems will be asked to identify the index of the sentence in which the evidence \(e_{ijk}\) corresponding to the clinical factor appears. 
+                      We will perform sentence segmentation and release the indices and offsets as part of the ground truth to avoid ambiguity. The task is set up in such a way that there is no inter-sentential reasoning needed, 
+                      meaning evidences are fully contained within the span of the sentence. 
+                      Systems will be compared based on both macro and micro-averaged f-measure with the precision being the ratio of sentences found by the system that are correct (meaning they contain the correct evidence \(e_{ijk}\)) and 
+                      the recall being the ratio of sentences present in the ground truth that are found by the system. 
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="heading">
+                  <h2>Track 2: Document-level Summary</h2>
+                  Here, instead of identifying specific evidence(s) \(e_{ijk}\) for a clinical factor \(f_{ij}\) for note \(k\), participant systems will be asked to provide assertions "present (1) / absent (0) / negated (-1)" for each clinical factor \(f_{ij}\) at the note level. 
+                  For example, consider the following setting:
+                  <ul>
+                    <li>One of the clinical factors is \(\texttt{A1C > 6.5%}\)</li>
+                    <li>A span of text within the clinical note contains the following string: \(\texttt{...His last hemoglobin A1C drawn at the end of December is 11.9. ...}\)</li>
+                  </ul>
+                  The expected answer is "present (1)".
+                  Let us say that some condition \(d_{i}\) has 5 clinical factors \(f_{i1,...,i5}\). If evidences for a subset (say, \(1^{st}\), \(3^{rd}\) and \(4^{th}\)) of clinical factors are present in the note \(d_{i}\). 
+                  The ground truth for combination \(d_{i}\)-\(n_{k}\) would look like {1, 0, 1, -1, 0}. 
+                  If there are partial or contradicting evidences within the clinical note, systems would need to compute the "summary" assertion for the entire note for \(f_{ij}\). 
+                  This requires inter-sentential reasoning.
+                  <h3>Evaluation Metrics</h3>
+                  Systems will be compared based on both macro and micro-averaged f-measure with the precision being the ratio of clinical notes found by the system that are correct (meaning that the assertion on clinical factor \(f_{ij}\) matches the ground truth) and 
+                  the recall being the ratio of clinical notes present in the ground truth that are found by the system. 
+                </div>
+
+          </div>
+            <div id="contentData" class="content right-pan-normal-mode">
+                <div class="heading">
+                    <h1>Clinical Conditions</h1>
+                    <p>
+                      The conditions were chosen based on a published analysis of the top admission numbers by ICD-9 diagnosis within the MIMC-III database published by <a href="https://doi.org/10.1016/j.cmpb.2019.05.024">Huang et al</a>.
+                      Our selection of conditions was also driven by an analysis of 2019 <a href="https://www.ibm.com/products/marketscan-research-databases/databases">Market Scan</a> claims data to identify high-cost medical conditions and episodes of care.
+                      Data for 3 conditions will be released in the training phase, and 2 additional conditions will be reserved as testing data. 
+                    </p>
+                  </div>
+                  <div class="heading">
+                    <h1>Clinical Notes</h1>
+                    <p>
+                      Clinical notes written by residents and attending physicians were selected from <a href="https://mimic.physionet.org/">MIMIC</a> (<a href="https://dspace.mit.edu/handle/1721.1/109192">Medical Information Mart for Intensive Care</a>), 
+                      a single-center dataset comprised of de-identified data relating to patients admitted to critical care units at a large tertiary care hospital. 
+                      Data associated with approximately 60,000 critical care admissions includes structured information such as vital signs, medications, laboratory measurements, 
+                      and unstructured notes charted by care providers. The database has been extensively used to support applications ranging from academic research, quality improvement initiatives, 
+                      and predictive modeling. The annotations are created by 6 physicians using 1,500 admission notes and discharge summaries selected from MIMIC-III. 
+                    </p>
+                  </div>
+                  <div class="heading">
+                    <h1>Annotation Process</h1>
+                    <p>
+                      A candidate list of clinical factors for each clinical condition was compiled by a review of clinical guidelines authored by a medical society or association 
+                      (e.g., American College of Cardiology) and a point of care clinical knowledge resource (e.g., UpToDate by Wolters Kluwer). Clinical factors were considered across 
+                      the spectrum of evaluation and management, and could encompass specific symptoms, narrative histories, or physical exam findings. 
+                      This list of candidate clinical factors was refined by eliminating any clinical factor represented by a structured data field within an EMR (e.g., demographic information, 
+                      problems lists, medication orders, laboratory results). The final list of clinical factors defined are represented as unstructured text or spans of text within the clinical notes.
+                      Two of the conditions and a subset of clinical factors identified for this challenge task is represented in the following table 
+                    </p>
+                    <style type="text/css">
+                      .tg {margin-left:auto;margin-right:auto;}
+                      .tg  {border-collapse:collapse;border-spacing:0;}
+                      .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                        overflow:hidden;padding:10px 5px;word-break:normal;}
+                      .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                        font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+                      .tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+                      .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+                      </style>
+                      <table class="tg">
+                      <thead>
+                        <tr>
+                          <th class="tg-fymr">Clinical Condition</th>
+                          <th class="tg-0pky"><span style="font-weight:700;font-style:normal">Clinical Factors</span></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="tg-0pky">Hypertension</td>
+                          <td class="tg-0pky">Tobacco use<br>Excess alcohol intake<br>Non-adherence</td>
+                        </tr>
+                        <tr>
+                          <td class="tg-0pky">Diabetes Type II</td>
+                          <td class="tg-0pky">First degree relative with DM<br>Hyperglycemic symptoms<br>Tobacco use</td>
+                        </tr>
+                      </tbody>
+                      </table>
+                  </div>
+
+                  <div class="heading">
+                    <h1>Format</h1>
+                    <p>                      
+                      <b>Training set:</b> The registered participants of the task will be provided with gold standard annotations created by medical experts on over 900 MIMIC-III clinical notes along with their corresponding ROW_IDs in noteevents table.  Of these, 600 clinical notes will be used as training set , 300 clinical notes will be used as validation set. 
+                    </p>
+                    <p>                    
+                      <b>Test set:</b> The ROW_IDs of 600 MIMIC-III clinical notes will be released to the registered participations during the evaluation phase. The registered participants are expected to provide their system predictions on these notes in CONLL-2002 format (similar to training set annotations format).
+                    </p>
+                  </div>
+
+            </div>
+   
+          
+            
+            <div id="contentReg" class="content right-pan-normal-mode">
+
+                <div class="heading">
+                    <h1>Registration</h1>
+                </div>
+                <p> Registration will begin on April 19, 2021.
+                </p>
+
+                <div class="heading">
+                  <h1>Participation Instructions</h1>
+                  <p> To be added.</p>
+                </div>
+
+            </div>
+            
+            <div id="contentDates" class="content right-pan-normal-mode">
+                <div class="heading">
+                    <h1>Important Dates</h1>
+                </div> 
+                <div class="timeline">
+                  <div class="container left">
+                    <div class="t_content">
+                      <h3>April 19, 2021</h3>
+                      <p>First call for participation, with information about the training data.</p>
+                    </div>
+                  </div>
+                  <div class="container right">
+                    <div class="t_content">
+                      <h3>June 1, 2021</h3>
+                      <p>Release of the training set (first batch).</p>
+                    </div>
+                  </div>
+                  <div class="container left">
+                    <div class="t_content">
+                      <h3>July 1, 2021</h3>
+                      <p>Release of the training set (second batch).</p>
+                    </div>
+                  </div>
+                  <div class="container right">
+                    <div class="t_content">
+                      <h3>Sep 23, 2021</h3>
+                      <p>Release of the test sets.</p>
+                    </div>
+                  </div>
+                  <div class="container left">
+                    <div class="t_content">
+                      <h3>Sep 24, 2021</h3>
+                      <p>Run submission deadline.</p>
+                    </div>
+                  </div>
+                  <div class="container right">
+                    <div class="t_content">
+                      <h3>Sep 30, 2021</h3>
+                      <p>Release of the official results.</p>
+                    </div>
+                  </div>
+                  <div class="container left">
+                    <div class="t_content">
+                      <h3>Oct 7, 2021</h3>
+                      <p>Papers due.</p>
+                    </div>
+                  </div>
+                  <div class="container right">
+                    <div class="t_content">
+                      <h3>Oct 15, 2021</h3>
+                      <p>Camera-ready papers due (hard deadline).</p>
+                    </div>
+                  </div>
+                  <div class="container left">
+                    <div class="t_content">
+                      <h3>October 30, 2021</h3>
+                      <p>Workshop</p>
+                    </div>
+                  </div>
+                </div>
+            </div>      
+            
+            <div id="contentOrg" class="content right-pan-normal-mode">
+                <div class="heading">
+                    <h1>Organizers</h1>
+                </div>
+                <p>The IBM Challenge Team consists of a multidisciplinary group of researchers, scientists, clinicians and developers from IBM Research and IBM Watson Health. We have extensive training in NLP development, implementation, and evaluation and have published widely on topics related to state of the art including evaluation and annotation, extraction of clinical concepts and relations, identification of contextual features, and textual summarization. Our team has participated and placed highly in many clinical NLP challenges since 2017 (TAC 2017-19, MADE 1.0, N2C2 2018-19, mediQA 2021), and has been curating and sharing annotated datasets EMRQA, WNTRAC with the research community.</p>
+                <p><b>Parthasarathy Suryanarayanan, B.Sc, B.Tech</b> is a senior research software engineer and Chief Architect in the Healthcare & Life Sciences department at IBM Research. He has about 17 years of industry experience building scalable information processing architectures that enable both collaborative research and rapid commercialization. As the engineering lead in one of IBM’s research teams, he has spent the last decade in applying Natural Language Processing to the medical domain, building various research prototypes and helping them turn into business offerings. His interests include natural language processing, machine learning, algorithm design, information retrieval and software engineering.</p>
+                <p><b>Mario J. Lorenzo, Ph.D</b> currently serves as Chief Architect for Healthcare NLP in IBM Watson Health. He has 16 years of industry experience developing systems and software for IBM. During the last ten years, he has focused on applying AI and NLP to complex process transformation problems across Healthcare, Life Sciences, and Financial Services industries. Mario pioneered the first commercialization of IBM Watson in healthcare and holds numerous patents, publications, and technical awards in this field. Mario earned his Ph.D. in Computer Science with a focus on AI-based NLP. and a M.S. in Computer Science with a focus on Distributed computing.</p>
+                <p><b>Jennifer J. Liang, MD</b> is a Medical Researcher in the Healthcare and Life Sciences department at IBM Research. As the resident subject matter expert, she works closely with AI researchers to develop analytics for use in the medical domain based on natural language processing and machine learning. Dr. Liang has been with IBM for more than 7 years, supporting both Research and Watson Health in creating annotated datasets, developing and evaluating new analytics, and adapting existing technologies to new client data. Her current focus is on applications for use in the clinical setting, including analytics on electronic medical records and clinical decision support systems. She holds an MD from New York Medical College and a BS in Materials Science and Engineering from Massachusetts Institute of Technology.</p>
+                <p><b>Ching-Huei Tsou, Ph.D</b> is a research staff member and manager in the Healthcare & Life Sciences department at IBM Research. His areas of expertise include machine learning, natural language processing, numerical optimization, and software engineering. Dr. Tsou joined IBM's Jeopardy-wining research team in 2012 and contributed in the initiative in shifting the research emphasis from general question-answering to exploring the use of natural language processing to benefit healthcare. His current research interest is in building health informatics to support clinical decision making, specifically, in the area of extracting clinical insights and generating summarizations from unstructured patient records.</p>
+                <p><b>Divya R. Pathak, MS, MBA</b> is a Senior manager in Healthcare & Life Sciences Research at at IBM Research. In her current role, she is responsible for working across IBM Research to define and drive the Healthcare NLP research strategy. Prior to IBM, She worked at Mayo Clinic's Information Technology department and led the Enterprise Data Management initiative in driving strategic goals and direction on the architecture, development and implementation of clinical data acquisition, integration, standardization and delivery. Divya earned her Bachelors of Engineering degree from National Institute of Technology, Jamshedpur India (2002), Masters in Computer Science from Oklahoma State University, Stillwater USA (2006) and Masters in Business Administration from University of Minnesota, Twin Cities USA (2014).</p>
+                <p><b>Brett R South, MS, Ph.D, FAMIA</b> is a Biomedical Informatician working with the Center for AI, Research, and Evaluation (CARE) within IBM Watson Health. His areas of expertise include Natural Language Processing (NLP), data science, clinical informatics, and evaluation methods. Brett has led a diverse array of NLP studies for various information extraction and classification tasks. Brett has a strong love and passion for implementation of technology applied to healthcare particularly as it relates to the use of AI and its potential impact on patient outcomes and clinical decision making. He is a member of AMIA and serves on the editorial board for the journal Applied Clinical Informatics.</p>
+                <p><b>Bharath Dandala, Ph.D</b> is a research staff member in the Healthcare & Life Sciences department at IBM Research. In this role, Dr Dandala researches and develops computational methods in the field of Computational Healthcare. Dr. Dandala has been with IBM for more than seven years, supporting multiple research projects, establishing innovative technologies and methods that enable state-of-the-art natural language processing systems in both general and clinical domain. His area of specialty include machine learning, natural language Processing, and software engineering. Dr. Dandala holds a Ph.D. and master’s in computer science from University of North Texas, and a Bachelor of Technology from Jawaharlal Nehru Technological University.</p>
+                <p><b>Alice Landis-McGrath, MD</b> is a physician with over 19 years of informatics experience, is an Associate Chief Health Officer at IBM Watson Health, where she focuses on the use of data, analytic tools, and clinical decision support technologies to transform clinical and operational processes. She provides global clinical subject matter expertise for the Life Sciences Real World Data and Provider Oncology solutions portfolios. In this role, she provides sales and strategy support for life sciences and provider organizations looking to leverage data and cognitive technologies to transform the product life cycle, clinical research and clinical delivery. Dr. Landis-McGrath earned her MD from the University of Pennsylvania School of Medicine, and her BA in Chemistry from Franklin & Marshall College.</p>
+                
+            </div>
+            <div id="contentContact" class="content right-pan-normal-mode">
+              <div class="heading"><h1>Contact</h1></div>
+                  Please join the discussion group below for announcements. Questions about the challenge can be addressed to the organizers by posting to the group or sending email to the address below.<br> 
+                  Discussion Group: <a href="https://groups.google.com/d/forum/CFactAI2021" target="_blank">CFactAI2021</a> <br>
+                  Email: <a href="mailto:CFactAI2021@googlegroups.com">CFactAI2021@googlegroups.com </a>
+            </div>
+            <div id="contentReferences" class="content right-pan-normal-mode">
+              <div class="heading"><h1>References</h1></div>
+               <ol>
+                    <li id="#1">
+                      <p>
+                      Wendy W Chapman, Prakash M Nadkarni, Lynette Hirschman, Leonard W D'Avolio, Guergana K Savova, Ozlem Uzuner, Overcoming barriers to NLP for clinical text: the role of shared tasks and the need for additional creative solutions, Journal of the American Medical Informatics Association, Volume 18, Issue 5, September 2011, Pages 540–543, 
+                      <a href="https://doi.org/10.1136/amiajnl-2011-000465">https://doi.org/10.1136/amiajnl-2011-000465</a>
+                      </p>
+                    </li>
+
+                <li>
+                    <p>Özlem Uzuner, Imre Solti, Eithon Cadag, <cite>Extracting medication information from clinical text</cite>, Journal of the American Medical Informatics Association, Volume 17, Issue 5, September 2010, Pages 514–518, 
+                      <a href="https://doi.org/10.1136/jamia.2010.003947">https://doi.org/10.1136/jamia.2010.003947</a>
+                    </p>
+                </li>
+
+                <li>
+                  <p>Özlem Uzuner, Brett R South, Shuying Shen, Scott L DuVall, <cite>2010 i2b2/VA challenge on concepts, assertions, and relations in clinical text</cite>, 
+                    Journal of the American Medical Informatics Association, Volume 18, Issue 5, September 2011, Pages 552–556, <a href="https://doi.org/10.1136/amiajnl-2011-000203">https://doi.org/10.1136/amiajnl-2011-000203</a></p>
+                </li>
+                
+                <li>
+                  <p>Ozlem Uzuner, Andreea Bodnari, Shuying Shen, Tyler Forbush, John Pestian, Brett R South, <cite>Evaluating the state of the art in coreference resolution for electronic medical records</cite>, 
+                    Journal of the American Medical Informatics Association, Volume 19, Issue 5, September 2012, Pages 786–791, <a href="https//doi.org/10.1136/amiajnl-2011-000784">https://doi.org/10.1136/amiajnl-2011-000784</a></p>
+                </li>
+
+                <li>
+                  <p>Weiyi Sun, Anna Rumshisky, Ozlem Uzuner, <cite>Evaluating temporal relations in clinical text: 2012 i2b2 Challenge</cite>, 
+                    Journal of the American Medical Informatics Association, Volume 20, Issue 5, September 2013, Pages 806–813, <a href="https://doi.org/10.1136/amiajnl-2013-001628">https://doi.org/10.1136/amiajnl-2013-001628</a></p>
+                </li>
+
+                <li>
+                  <p>Weiyi Sun, Anna Rumshisky, Ozlem Uzuner, <cite>Annotating temporal information in clinical narratives</cite>, 
+                    Journal of Biomedical Informatics, Volume 46, Supplement,2013, Pages S5-S12, ISSN 1532-0464, <a href="https://doi.org/10.1016/j.jbi.2013.07.004">https://doi.org/10.1016/j.jbi.2013.07.004</a></p>
+                </li>
+
+                <li>
+                  <p>Vishesh Kumar, Amber Stubbs, Stanley Shaw, Özlem Uzuner, <cite>Creation of a new longitudinal corpus of clinical narratives</cite>, 
+                    Journal of Biomedical Informatics, Volume 58, Supplement, 2015, Pages S6-S10, ISSN 1532-0464, <a href="https://doi.org/10.1016/j.jbi.2015.09.018">https://doi.org/10.1016/j.jbi.2015.09.018</a></p>
+                </li>
+
+                <li>
+                  <p>Sam Henry, Kevin Buchan, Michele Filannino, Amber Stubbs, Ozlem Uzuner, <cite>2018 n2c2 shared task on adverse drug events and medication extraction in electronic health records</cite>, 
+                    Journal of the American Medical Informatics Association, Volume 27, Issue 1, January 2020, Pages 3–12, <a href="https://doi.org/10.1093/jamia/ocz166">https://doi.org/10.1093/jamia/ocz166</a></p>
+                </li>
+
+              </ol>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+
